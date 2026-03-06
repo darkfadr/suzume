@@ -12,13 +12,21 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: mymindstorm/setup-emsdk@v14
+
+
+      # Enable Corepack for Yarn Berry
+      - name: Enable Corepack
+        run: corepack enable
+
       - uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: yarn
           registry-url: https://registry.npmjs.org
+
       - run: yarn install --immutable
       - run: yarn build
+
       - run: yarn lint
       - run: yarn test
       - name: Create GitHub Release
